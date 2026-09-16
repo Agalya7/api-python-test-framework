@@ -1,6 +1,7 @@
 import requests
 import pytest
 from api.api_client import APIClient
+from test_data.posts import POST_IDS
 
 
 BASE_URL = "https://jsonplaceholder.typicode.com"
@@ -17,13 +18,13 @@ def test_get_posts(api_client):
     posts = response.json()
     assert len(posts) > 0
 
-def test_get_post_by_id(api_client):
-    response = api_client.get("/posts/1")
+@pytest.mark.parametrize("post_id", POST_IDS)
+def test_get_post_by_id(api_client, post_id):
+    response = api_client.get(f"/posts/{post_id}")
     assert response.status_code == 200
 
     post = response.json()
-
-    assert post["id"] == 1
+    assert post["id"] == post_id
     assert "title" in post
     assert "body" in post
     assert "userId" in post
