@@ -2,9 +2,7 @@ import requests
 import pytest
 from api.api_client import APIClient
 from test_data.posts import POST_IDS
-
-
-BASE_URL = "https://jsonplaceholder.typicode.com"
+from config import BASE_URL
 
 
 @pytest.fixture
