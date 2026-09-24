@@ -14,7 +14,8 @@ def order_api_client():
 def test_create_order(order_api_client):
     payload = {
         "product_id": 101,
-        "quantity": 2
+        "quantity": 2,
+        "amount": 49.99
     }
 
     response = order_api_client.post("/orders", payload)
@@ -27,3 +28,4 @@ def test_create_order(order_api_client):
     assert order["product_id"] == payload["product_id"]
     assert order["quantity"] == payload["quantity"]
     assert order["status"] == "created"
+    assert order["payment_status"] == "approved"
